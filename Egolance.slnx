@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Egolance.Api/Egolance.Api.csproj" />
+  <Project Path="Egolance.Application/Egolance.Application.csproj" />
+  <Project Path="Egolance.Domain/Egolance.Domain.csproj" />
+  <Project Path="Egolance.infrastructure/Egolance.Infrastructure.csproj" />
+</Solution>
