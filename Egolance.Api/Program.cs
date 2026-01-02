@@ -48,6 +48,9 @@ builder.Services.AddSwaggerGen();
 //for JWT Authentication
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddAuthorization();
+builder.Services.AddScoped<ServiceCategoryService>();
+builder.Services.AddScoped<WorkerService>(); 
+
 
 
 

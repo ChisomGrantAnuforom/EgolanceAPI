@@ -114,6 +114,146 @@ namespace Egolance.Api.Controllers
             if (!deleted) return NotFound();
             return NoContent();
         }
+
+
+        //GET BY CATEGORY
+        [HttpGet("category/{categoryId}")]
+        public async Task<IActionResult> GetByCategory(Guid categoryId)
+        {
+            var workers = await _service.GetByCategoryAsync(categoryId);
+
+            return Ok(workers.Select(w => new WorkerResponse
+            {
+                WorkerId = w.WorkerId,
+                Bio = w.Bio,
+                HourlyRate = w.HourlyRate,
+                ServiceCategoryId = w.ServiceCategoryId,
+                ExperienceYears = w.ExperienceYears,
+                LocationLat = (double) w.LocationLat,
+                LocationLng = (double) w.LocationLng,
+                IsAvailable = w.IsAvailable,
+                Rating = w.Rating,
+                VerificationStatus = w.VerificationStatus.ToString()
+            }));
+        }
+
+
+        //TOGGLE AVAILABILITY
+
+        [HttpPatch("{id}/toggle-availability")]
+        public async Task<IActionResult> ToggleAvailability(Guid id)
+        {
+            var worker = await _service.ToggleAvailabilityAsync(id);
+            if (worker == null) return NotFound();
+
+            return Ok(new WorkerResponse
+            {
+                WorkerId = worker.WorkerId,
+                Bio = worker.Bio,
+                HourlyRate = worker.HourlyRate,
+                ServiceCategoryId = worker.ServiceCategoryId,
+                ExperienceYears = worker.ExperienceYears,
+                LocationLat = (double)worker.LocationLat,
+                LocationLng = (double)worker.LocationLng,
+                IsAvailable = worker.IsAvailable,
+                Rating = worker.Rating,
+                VerificationStatus = worker.VerificationStatus.ToString()
+            });
+        }
+
+
+        //FIND NEARBY WORKERS
+        //GET /api/workers/nearby? lat = 53.45 & lng = -6.15 & radiusKm = 15
+        [HttpGet("nearby")]
+        public async Task<IActionResult> GetNearby(double lat, double lng, double radiusKm = 10)
+        {
+            var workers = await _service.GetNearbyAsync(lat, lng, radiusKm);
+
+            return Ok(workers.Select(w => new WorkerResponse
+            {
+                WorkerId = w.WorkerId,
+                Bio = w.Bio,
+                HourlyRate = w.HourlyRate,
+                ServiceCategoryId = w.ServiceCategoryId,
+                ExperienceYears = w.ExperienceYears,
+                LocationLat = (double)w.LocationLat,
+                LocationLng = (double)w.LocationLng,
+                IsAvailable = w.IsAvailable,
+                Rating = w.Rating,
+                VerificationStatus = w.VerificationStatus.ToString()
+            }));
+        }
+
+        // APPROVE WORKER
+        [HttpPatch("{id}/approve")]
+        public async Task<IActionResult> Approve(Guid id, WorkerVerificationUpdate input)
+        {
+            var worker = await _service.ApproveWorkerAsync(id, input.Reason);
+            if (worker == null) return NotFound();
+
+            return Ok(new WorkerResponse
+            {
+                WorkerId = worker.WorkerId,
+                Bio = worker.Bio,
+                HourlyRate = worker.HourlyRate,
+                ServiceCategoryId = worker.ServiceCategoryId,
+                ExperienceYears = worker.ExperienceYears,
+                LocationLat = (double)worker.LocationLat,
+                LocationLng = (double)worker.LocationLng,
+                IsAvailable = worker.IsAvailable,
+                Rating = worker.Rating,
+                VerificationStatus = worker.VerificationStatus.ToString()
+            });
+        }
+
+
+        // REJECT WORKER
+        [HttpPatch("{id}/reject")]
+        public async Task<IActionResult> Reject(Guid id, WorkerVerificationUpdate input)
+        {
+            var worker = await _service.RejectWorkerAsync(id, input.Reason);
+            if (worker == null) return NotFound();
+
+            return Ok(new WorkerResponse
+            {
+                WorkerId = worker.WorkerId,
+                Bio = worker.Bio,
+                HourlyRate = worker.HourlyRate,
+                ServiceCategoryId = worker.ServiceCategoryId,
+                ExperienceYears = worker.ExperienceYears,
+                LocationLat = (double)worker.LocationLat,
+                LocationLng = (double)worker.LocationLng,
+                IsAvailable = worker.IsAvailable,
+                Rating = worker.Rating,
+                VerificationStatus = worker.VerificationStatus.ToString()
+            });
+        }
+
+
+        // GET VERIFIED WORKERS
+        [HttpGet("verified")]
+        public async Task<IActionResult> GetVerified()
+        {
+            var workers = await _service.GetVerifiedWorkersAsync();
+
+            return Ok(workers.Select(w => new WorkerResponse
+            {
+                WorkerId = w.WorkerId,
+                Bio = w.Bio,
+                HourlyRate = w.HourlyRate,
+                ServiceCategoryId = w.ServiceCategoryId,
+                ExperienceYears = w.ExperienceYears,
+                LocationLat = (double)w.LocationLat,
+                LocationLng = (double)w.LocationLng,
+                IsAvailable = w.IsAvailable,
+                Rating = w.Rating,
+                VerificationStatus = w.VerificationStatus.ToString()
+            }));
+        }
+
+
+
+
     }
 
 
