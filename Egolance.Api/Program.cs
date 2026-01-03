@@ -49,12 +49,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<ServiceCategoryService>();
-builder.Services.AddScoped<WorkerService>(); 
+builder.Services.AddScoped<WorkerService>();
+builder.Services.AddScoped<PortfolioService>();
+builder.Services.AddScoped<ReviewService>();
+builder.Services.AddScoped<BookingService>();
+builder.Services.AddScoped<PaymentService>();
+builder.Services.AddScoped<ChatService>();
+builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<NotificationService>();
 
 
 
-
-
+Stripe.StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
 
 

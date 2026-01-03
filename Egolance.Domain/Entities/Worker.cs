@@ -23,6 +23,12 @@ namespace Egolance.Domain.Entities
         public ServiceCategory ServiceCategory { get; set; } = default!;
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
         public ICollection<WorkerDocument> Documents { get; set; } = new List<WorkerDocument>();
+
+        public List<PortfolioItem> Portfolio { get; set; } = new();
+
+        public List<Review> Reviews { get; set; } = new();
+
+
     }
 
 }
